@@ -3,7 +3,7 @@ from datetime import datetime
 import pickle
 import rawdatamodules as rdm
 
-dictionary_path='/home/jmanning/Desktop/teledictdatatest2018_n.p'
+dictionary_path='/home/jmanning/Desktop/data_dict/dictdatatest201833_n.p'
 start_time_str='2018-7-1'
 end_time_str='2019-3-21'
 picture_save='/home/jmanning/Desktop/qwe/' #use
@@ -11,7 +11,7 @@ picture_save='/home/jmanning/Desktop/qwe/' #use
 
 start_time=datetime.strptime(start_time_str,'%Y-%m-%d')
 end_time=datetime.strptime(end_time_str,'%Y-%m-%d')
-with open('/home/jmanning/Desktop/data_dict/dictdatatest201833_n.p', 'rb') as fp:
+with open(dictionary_path, 'rb') as fp:
     dict = pickle.load(fp)   
 tele_dict=dict['tele_dict']
 raw_dict=dict['raw_dict']
