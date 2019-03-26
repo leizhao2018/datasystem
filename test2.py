@@ -2,12 +2,12 @@
 from datetime import datetime
 import pickle
 import rawdatamodules as rdm
-
+#HARDCODE
 dictionary_path='/home/jmanning/Desktop/data_dict/dictdatatest201833_n.p'
 start_time_str='2018-7-1'
 end_time_str='2019-3-21'
-picture_save='/home/jmanning/Desktop/qwe/' #use
-
+picture_save='/home/jmanning/Desktop/qwe/' 
+####################################
 
 start_time=datetime.strptime(start_time_str,'%Y-%m-%d')
 end_time=datetime.strptime(end_time_str,'%Y-%m-%d')
