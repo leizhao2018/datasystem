@@ -12,7 +12,7 @@ except ImportError:
     import pickle
 import matplotlib.pyplot as plt
 import numpy as np
-import test as rdm
+import rawdatamodules as rdm
 import zlconversions as zl
 import time
 import os
