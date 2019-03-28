@@ -89,7 +89,6 @@ def classify_by_boat(telemetry_status,start_time,end_time,dict):
                      columns=['time','temp','depth','lat','lon','dpo_temp','dpo_depth','gmf_temp','gmf_depth'])
         for i in valuable_tele_df.index:  #valuable_tele_df is the valuable telemetry data during start time and end time 
             if int(valuable_tele_df['vessel_n'][i].split('_')[1])==telemetrystatus_df['Vessel#'][j]:
-                print()
                 try:     #try to get doppio data in the same locattion
                     dpo_temp,dpo_depth=dpo.get_doppio(lat=float(valuable_tele_df['lat'][i]),lon=float(valuable_tele_df['lon'][i]),depth='bottom',\
                                                       time=valuable_tele_df['time'][i].strftime("%Y-%m-%d %H:%M:%S"),fortype='tempdepth') 
