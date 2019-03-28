@@ -21,7 +21,6 @@ import math
 import difflib
 import time
 import requests
-import conversions as cs
 
 def angle_conversion(a):
     a = np.array(a)
