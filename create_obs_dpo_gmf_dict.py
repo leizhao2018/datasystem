@@ -16,6 +16,7 @@ try:
 except ImportError:
     import pickle
 import json
+import re
     
 def read_telemetrystatus(path_name):
     """read the telementry_status, then return the useful data"""
@@ -39,7 +40,7 @@ def read_telemetrystatus(path_name):
         if not telemetrystatus_df['Lowell-SN'].isnull()[i]:
             telemetrystatus_df['Lowell-SN'][i]=telemetrystatus_df['Lowell-SN'][i].replace('，',',')
         if not telemetrystatus_df['logger_change'].isnull()[i]:
-            telemetrystatus_df['logger_change'][i]=telemetrystatus_df['logger_change'][i].replace('，',',')
+            telemetrystatus_df['logger_change'][i]=re.sub('，',',',telemetrystatus_df['logger_change'][i])
     return telemetrystatus_df
 
 
@@ -106,17 +107,19 @@ def classify_by_boat(telemetry_status,start_time,end_time,dict):
                 valuable_tele_df=valuable_tele_df.drop(i)  #if this line has been classify, delete this line
     dict['tele_dict']=tele_dict
     return dict
+
           
 telemetry_status='/home/jmanning/Downloads/telemetry_status - fitted.csv'
-start_time_str='2018-7-3'
-end_time_str='2018-9-1'
+start_time_str='2018-7-1'
+end_time_str='2018-7-2'
 start_time=datetime.strptime(start_time_str,'%Y-%m-%d')
 end_time=datetime.strptime(end_time_str,'%Y-%m-%d') 
 filepath='/home/jmanning/Desktop/data_dict/dict_obsdpogmf.p'
-
+filepath2='/home/jmanning/Desktop/data_dict/dict_obsdpogmf.pkl'
 try:
-    with open(filepath,'rb') as fp:
-        dict = pickle.load(fp)
+    dict=pd.read_pickle(filepath2)
+#    with open(filepath,'rb') as fp:
+#        dict = pickle.load(fp)
 except:
     dict={}  
 obsdpogmf=classify_by_boat(telemetry_status,start_time,end_time,dict)
@@ -124,7 +127,28 @@ for i in obsdpogmf['tele_dict'].keys():
     if len(obsdpogmf['tele_dict'][i])>0:
         obsdpogmf['tele_dict'][i].drop_duplicates(subset=['time'],keep='first',inplace=True)
         obsdpogmf['tele_dict'][i].index=range(len(obsdpogmf['tele_dict'][i]))
-with open(filepath,'wb') as fp:
-    pickle.dump(obsdpogmf,fp,protocol=pickle.HIGHEST_PROTOCOL)
+#with open(filepath,'wb') as fp:
+#    pickle.dump(obsdpogmf,fp,protocol=pickle.HIGHEST_PROTOCOL)
+obsdpogmf.to_pickle(filepath2)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
